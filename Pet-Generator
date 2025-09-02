@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌱 Grow-A-Garden Pet Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #c7f0ff, #f0fff4);
+      margin: 0;
+      padding: 20px;
+    }
+    .app {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 24px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease-in-out;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .controls {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 12px 24px;
+      background: #4a90e2;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform 0.2s, background 0.3s;
+    }
+    button:hover {
+      background: #3578c6;
+      transform: scale(1.05);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
+      gap: 16px;
+    }
+    .pet {
+      background: #f9fbff;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: popIn 0.6s forwards;
+    }
+    .pet img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+    .pet img:hover {
+      transform: scale(1.12) rotate(3deg);
+    }
+    .name {
+      font-weight: bold;
+      margin-top: 8px;
+      font-size: 16px;
+      color: #333;
+    }
+    .rarity {
+      font-size: 13px;
+      font-weight: bold;
+      margin: 4px 0;
+    }
+    .Common { color: gray; }
+    .Devine { color: gold; }
+    .Prismatic { color: #e91e63; }
+
+    @keyframes popIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>🌱 Grow-A-Garden Pet Generator</h1>
+    <div class="controls">
+      <button onclick="generatePets()">✨ Generate Pets</button>
+    </div>
+    <div class="grid" id="petGrid"></div>
+  </div>
+
+  <script>
+    // Pet list with fixed links
+    const pets = [
+      { 
+        name: "Raccoon", 
+        rarity: "Devine", 
+        img: "https://static.wikia.nocookie.net/growagarden/images/5/54/Raccon_Better_Quality.png", 
+        link: "https://www.robiox.com.ua/users/4500507838/profile" 
+      },
+      { 
+        name: "Corrupted Kitsune", 
+        rarity: "Prismatic", 
+        img: "https://static.wikia.nocookie.net/growagarden/images/2/2a/CorruptedKitsune.png", 
+        link: "https://www.robiox.com.ua/games/126884695634066/Grow-a-Garden?privateServerLinkCode=74950412899507275796099852771822" 
+      },
+      { 
+        name: "Kitsune", 
+        rarity: "Prismatic", 
+        img: "https://static.wikia.nocookie.net/growagarden/images/0/04/Kitsune.png", 
+        link: "https://www.robiox.com.ua/users/4500507838/profile" 
+      }
+    ];
+
+    function randInt(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+    function generatePets() {
+      const grid = document.getElementById("petGrid");
+      grid.innerHTML = "";
+      for (let i = 0; i < 3; i++) {
+        const pet = pets[randInt(pets.length)];
+        const card = document.createElement("div");
+        card.className = "pet";
+        card.innerHTML = `
+          <a href="${pet.link}" target="_blank">
+            <img src="${pet.img}" alt="${pet.name}">
+          </a>
+          <div class="name">${pet.name}</div>
+          <div class="rarity ${pet.rarity}">${pet.rarity}</div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+  </script>
+</body>
+</html>
